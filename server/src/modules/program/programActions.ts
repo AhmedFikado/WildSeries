@@ -34,18 +34,56 @@ const browse: RequestHandler = async (req, res) => {
   res.json(programFromDB);
 };
 
-const read: RequestHandler = (req, res) => {
-  const parsedId = Number.parseInt(req.params.id);
+const read: RequestHandler = async (req, res) => {
+  const programId = Number(req.params.id);
 
-  const program = programs.find((p) => p.id === parsedId);
+  const program = await programRepository.read(programId);
 
-  if (program != null) {
-    res.json(program);
-  } else {
+  if (program == null) {
     res.sendStatus(404);
+  } else {
+    res.json(program);
   }
+};
+
+const edit: RequestHandler = async (req, res) => {
+  const program = {
+    id: Number(req.params.id),
+    title: req.body.title,
+    synopsis: req.body.synopsis,
+    poster: req.body.poster,
+    country: req.body.country,
+    year: req.body.year,
+    category_id: req.body.category_id,
+  };
+  const affectedRows = await programRepository.update(program);
+  if (affectedRows === 0) {
+    res.sendStatus(404);
+  } else {
+    res.sendStatus(204);
+  }
+};
+
+const add: RequestHandler = async (req, res) => {
+  const newProgram = {
+    title: req.body.title,
+    synopsis: req.body.synopsis,
+    poster: req.body.poster,
+    country: req.body.country,
+    year: req.body.year,
+    category_id: req.body.category_id,
+  };
+  const insertId = await programRepository.create(newProgram);
+  res.status(201).json({ insertId });
+};
+
+const destroy: RequestHandler = async (req, res) => {
+  const programId = Number(req.params.id);
+
+  await programRepository.delete(programId);
+  res.sendStatus(204);
 };
 
 // Export it to import it somewhere else
 
-export default { browse, read };
+export default { browse, read, edit, add, destroy };

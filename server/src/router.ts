@@ -21,6 +21,9 @@ router.post("/api/items", itemActions.add);
 router.get("/", sayActions.sayHello);
 router.get("/api/programs", programActions.browse);
 router.get("/api/programs/:id", programActions.read);
+router.put("/api/programs/:id", programActions.edit);
+router.post("/api/programs", programActions.add);
+router.delete("/api/programs/:id", programActions.destroy);
 
 // Category
 router.get("/api/categories", categoryActions.browse);
