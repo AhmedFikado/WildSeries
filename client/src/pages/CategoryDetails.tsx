@@ -23,24 +23,42 @@ function CategoryDetails() {
 
   return (
     category && (
-      <>
-        <hgroup className="details-hgroup">
-          <h1>{category.name}</h1>
-          <Link to={`/categories/${category.id}/edit`}>Modifier</Link>
-          <CategoryDeleteForm id={category.id}>Supprimer</CategoryDeleteForm>
-        </hgroup>
-
-        <ul>
+      <div className="min-h-screen bg-gray-900 text-gray-100 px-6 py-8">
+        <div className="flex items-center gap-4 mb-8">
+          <h1 className="text-3xl font-bold text-cyan-400">{category.name}</h1>
+          <Link
+            to={`/categories/${category.id}/edit`}
+            className="bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded shadow"
+          >
+            Modifier
+          </Link>
+          <CategoryDeleteForm id={category.id}>
+            <span className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded shadow cursor-pointer">
+              Supprimer
+            </span>
+          </CategoryDeleteForm>
+        </div>
+        <h2 className="text-2xl font-semibold text-cyan-300 mb-4">Séries</h2>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {category.programs.map((program) => (
-            <li key={program.id}>
-              <Link to={`/programs/${program.id}`}>
-                <p>{program.title}</p>
-                <img src={program.poster} alt={`poster of ${program.title}`} />
+            <li
+              key={program.id}
+              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform"
+            >
+              <Link to={`/programs/${program.id}`} className="block p-4">
+                <img
+                  src={program.poster}
+                  alt={`poster of ${program.title}`}
+                  className="w-full h-64 object-cover rounded mb-4"
+                />
+                <p className="text-xl font-semibold text-cyan-300">
+                  {program.title}
+                </p>
               </Link>
             </li>
           ))}
         </ul>
-      </>
+      </div>
     )
   );
 }

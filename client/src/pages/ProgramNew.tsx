@@ -16,24 +16,35 @@ function ProgramNew() {
   };
 
   return (
-    <ProgramForm
-      defaultValue={newProgram}
-      onSubmit={(programData) => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/programs`, {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(programData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            navigate(`/programs/${data.insertId}`);
-          });
-      }}
-    >
-      Ajouter
-    </ProgramForm>
+    <div className="min-h-screen bg-gray-900 text-gray-100 px-6 py-8 flex flex-col items-center">
+      <h1 className="text-3xl font-bold text-cyan-400 mb-8">
+        Ajouter une série
+      </h1>
+      <div className="w-full max-w-lg bg-gray-800 rounded-lg shadow-lg p-8">
+        <ProgramForm
+          defaultValue={newProgram}
+          onSubmit={(programData) => {
+            fetch(`${import.meta.env.VITE_API_URL}/api/programs`, {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(programData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (typeof data.insertId === "number") {
+                  navigate(`/programs/${data.insertId}`);
+                } else {
+                  navigate("/programs");
+                }
+              });
+          }}
+        >
+          Ajouter
+        </ProgramForm>
+      </div>
+    </div>
   );
 }
 
