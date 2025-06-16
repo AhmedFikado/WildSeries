@@ -84,6 +84,25 @@ const destroy: RequestHandler = async (req, res) => {
   res.sendStatus(204);
 };
 
+import joi from "joi";
+
+const movieSchema = joi.object({
+  title: joi.string().max(255).required(),
+  synopsis: joi.string().max(1000).required(),
+  poster: joi.string().max(255).required(),
+  country: joi.string().max(55).required(),
+  year: joi.string().max(4).required(),
+});
+
+const validate: RequestHandler = (req, res, next) => {
+  const { error } = movieSchema.validate(req.body, { abortEarly: false });
+
+  if (error == null) {
+    next();
+  } else {
+    res.status(400).json({ validationErrors: error.details });
+  }
+};
 // Export it to import it somewhere else
 
-export default { browse, read, edit, add, destroy };
+export default { browse, read, edit, add, destroy, validate };

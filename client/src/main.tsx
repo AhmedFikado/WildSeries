@@ -7,6 +7,10 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 
 // Import the main app component
 import App from "./App";
+import CategoryDetails from "./pages/CategoryDetails";
+import CategoryEdit from "./pages/CategoryEdit";
+import CategoryIndex from "./pages/CategoryIndex";
+import CategoryNew from "./pages/CategoryNew";
 import ProgramDetail from "./pages/ProgramDetail";
 import ProgramEdit from "./pages/ProgramEdit";
 import ProgramIndex from "./pages/ProgramIndex";
@@ -42,6 +46,22 @@ const router = createBrowserRouter([
       {
         path: "/programs/:id/edit",
         element: <ProgramEdit />,
+      },
+      {
+        path: "/categories",
+        element: <CategoryIndex />,
+      },
+      {
+        path: "/categories/new",
+        element: <CategoryNew />,
+      },
+      {
+        path: "/categories/:id",
+        element: <CategoryDetails />,
+      },
+      {
+        path: "/categories/:id/edit",
+        element: <CategoryEdit />,
       },
     ], // Renders the App component for the home page
   },

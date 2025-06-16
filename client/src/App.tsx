@@ -36,6 +36,9 @@ function App() {
             <li>
               <NavLink to="/programs">programs</NavLink>
             </li>
+            <li>
+              <NavLink to="/categories">categories</NavLink>
+            </li>
           </ul>
         </nav>
       </header>
