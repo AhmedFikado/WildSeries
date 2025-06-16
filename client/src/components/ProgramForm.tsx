@@ -10,6 +10,7 @@ interface ProgramFormProps {
 function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
   return (
     <form
+      className="flex flex-col gap-6"
       onSubmit={(event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -26,7 +27,7 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
         });
       }}
     >
-      <label>
+      <label className="flex flex-col gap-1 text-cyan-200 font-medium">
         Titre
         <input
           type="text"
@@ -34,9 +35,10 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
           placeholder="Ex: The Good Place"
           defaultValue={defaultValue.title || ""}
           required
+          className="bg-gray-900 border border-cyan-600 rounded px-3 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
       </label>
-      <label>
+      <label className="flex flex-col gap-1 text-cyan-200 font-medium">
         Synopsis
         <textarea
           name="synopsis"
@@ -44,12 +46,13 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
           defaultValue={defaultValue.synopsis || ""}
           required
           minLength={10}
+          className="bg-gray-900 border border-cyan-600 rounded px-3 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
-        <small>
+        <small className="text-gray-400">
           Décrivez brièvement le programme (au moins 10 caractères).
         </small>
       </label>
-      <label>
+      <label className="flex flex-col gap-1 text-cyan-200 font-medium">
         Affiche (URL)
         <input
           type="url"
@@ -57,10 +60,13 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
           placeholder="https://..."
           defaultValue={defaultValue.poster || ""}
           required
+          className="bg-gray-900 border border-cyan-600 rounded px-3 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
-        <small>Collez l’URL de l’image d’affiche.</small>
+        <small className="text-gray-400">
+          Collez l’URL de l’image d’affiche.
+        </small>
       </label>
-      <label>
+      <label className="flex flex-col gap-1 text-cyan-200 font-medium">
         Pays
         <input
           type="text"
@@ -68,9 +74,10 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
           placeholder="Ex: France"
           defaultValue={defaultValue.country || ""}
           required
+          className="bg-gray-900 border border-cyan-600 rounded px-3 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
       </label>
-      <label>
+      <label className="flex flex-col gap-1 text-cyan-200 font-medium">
         Année
         <input
           type="number"
@@ -80,10 +87,10 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
           required
           min={1800}
           max={2100}
+          className="bg-gray-900 border border-cyan-600 rounded px-3 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
       </label>
-      {/* Changement à faire: passer via un select pour sélectionner les catégories */}
-      <label>
+      <label className="flex flex-col gap-1 text-cyan-200 font-medium">
         Catégorie
         <input
           type="number"
@@ -93,13 +100,19 @@ function ProgramForm({ children, defaultValue, onSubmit }: ProgramFormProps) {
           required
           min={1}
           max={2}
+          className="bg-gray-900 border border-cyan-600 rounded px-3 py-2 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
-        <small>
+        <small className="text-gray-400">
           Renseignez l’ID de la catégorie (ex: 1 pour Comédie, 2 pour
           Science-Fiction).
         </small>
       </label>
-      <button type="submit">{children}</button>
+      <button
+        type="submit"
+        className="bg-cyan-600 hover:bg-cyan-500 text-white font-semibold px-6 py-2 rounded shadow mt-4 transition"
+      >
+        {children}
+      </button>
     </form>
   );
 }
